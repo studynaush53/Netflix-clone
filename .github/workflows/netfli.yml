@@ -45,3 +45,15 @@ jobs:
           docker push naush53/netflix:latest
         env: 
           DOCKER_CLI_ACL: 1
+
+  deploy: 
+  needs: build-analyze-scan
+  runs-on: [aws-netflix]
+  steps:
+    - name:  Pull Dokcer image
+      run: docker pull naush53/netflix:latest
+    - name: Run Trivy imagescan 
+      run: trivy image naush53/netflix:latest
+    - name: Run netflix container
+      run: docker run -d --name:sopranoss -p 8081:80 naush53/netflix:latest
+
