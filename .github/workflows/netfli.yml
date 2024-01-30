@@ -56,4 +56,3 @@ jobs:
       run: trivy image naush53/netflix:latest
     - name: Run netflix container
       run: docker run -d --name:sopranoss -p 8081:80 naush53/netflix:latest
-
